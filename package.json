@@ -26,5 +26,10 @@
   "dependencies": {
     "hyperquest": "~0.1.7",
     "lru-cache": "~2.3.1"
+  },
+  "devDependencies": {
+    "grunt": "0.4.x",
+    "grunt-contrib-jshint": "0.6.x",
+    "matchdep": "*"
   }
 }

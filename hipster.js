@@ -19,8 +19,8 @@ var HipsterDefaults = {
 
 var cache, Hipster;
 
-function getCacheKey(url, options) {
-	// FIXME
+function getCacheKey(method, url, data) {
+	return method + url + JSON.stringify(data);
 }
 
 function request(method, url, data, callback) {
@@ -46,7 +46,7 @@ function request(method, url, data, callback) {
 		}
 	}
 
-	var cacheKey = getCacheKey(url, options);
+	var cacheKey = getCacheKey(method, url, data);
 	var cachedResource = cache.get(cacheKey);
 	if (cachedResource) {
 		return callback(null, cachedResource);

@@ -35,6 +35,17 @@ function request(method, url, data, callback) {
 	// Augment it with baseUrl
 	url = [this.baseUrl, url].join("/");
 
+	if (data) {
+		if (method == "get") {
+			url += (/\?/.test(url) ? "&" : "?") + querystring.encode(data);
+		} else {
+			// TODO Implement.
+			// Need to set options.headers accordingly.
+			// potential reference: https://github.com/mikeal/request/blob/adc2cb6721e5980e8ed667a3f558cce8c89ee6c2/request.js#L972
+			throw new Error("{data: <data>} not implemented yet for " + method + " requests");
+		}
+	}
+
 	var cacheKey = getCacheKey(url, options);
 	var cachedResource = cache.get(cacheKey);
 	if (cachedResource) {

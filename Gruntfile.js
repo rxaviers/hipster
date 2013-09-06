@@ -16,13 +16,28 @@ module.exports = function(grunt) {
 				options: {
 					jshintrc: ".jshintrc"
 				}
+			},
+			test: {
+				src: ["test/**/*.js"],
+				options: {
+					jshintrc: "test/.jshintrc"
+				}
+			}
+		},
+		mochaTest: {
+			all: {
+				options: {
+					reporter: "spec"
+				},
+				src: ["test/**/*.js"]
 			}
 		}
 	});
 
 	require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
 
-	grunt.registerTask("default", ["jshint"]);
+	grunt.registerTask("test", ["mochaTest"]);
+	grunt.registerTask("default", ["jshint", "test"]);
 
 };
 

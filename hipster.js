@@ -32,8 +32,10 @@ function request(method, url, data, callback) {
 	// Remove url"s leading slash `/`
 	url = url.replace(/^\/+/, "");
 
-	// Augment it with baseUrl
-	url = [this.baseUrl, url].join("/");
+	if (this.baseUrl && this.baseUrl.length) {
+		// Augment it with baseUrl
+		url = [this.baseUrl, url].join("/");
+	}
 
 	if (data) {
 		if (method == "get") {

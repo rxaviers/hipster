@@ -52,8 +52,14 @@ function request(method, url, data, callback) {
 		return callback(null, cachedResource);
 	}
 
-	hyperquest[method](url, options, function(error, response) {
+	var req = hyperquest[method](url, options, function(error, response) {
 		if (error) {
+			return callback(error, null);
+		}
+		if (response.statusCode >= 400) {
+			error = new Error("Status Code " + response.statusCode);
+			error.response = response;
+			error.statusCode = response.statusCode;
 			return callback(error, null);
 		}
 		var data = "";
@@ -70,6 +76,9 @@ function request(method, url, data, callback) {
 			cache.set(cacheKey, data);
 			return callback(null, data);
 		});
+	});
+	req.on("error", function(error) {
+		return callback(error, null);
 	});
 }
 
